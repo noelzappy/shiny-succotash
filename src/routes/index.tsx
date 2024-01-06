@@ -4,7 +4,6 @@ import NotFound from "../pages/404";
 import Layout from "../components/Layout";
 import Books from "../pages/Books";
 import Characters from "../pages/Characters";
-import Houses from "../pages/Houses";
 
 export default createBrowserRouter([
   {
@@ -25,11 +24,6 @@ export default createBrowserRouter([
       {
         path: "/characters",
         element: <Characters />,
-      },
-
-      {
-        path: "/houses",
-        element: <Houses />,
       },
     ],
   },

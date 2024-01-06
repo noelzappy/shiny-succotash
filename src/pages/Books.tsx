@@ -20,16 +20,7 @@ const Books: React.FC = () => {
 
   return (
     <div>
-      {isLoading && (
-        <center>
-          <div>Loading...</div>
-        </center>
-      )}
-
       <center>
-        <h1>Books</h1>
-        <br />
-
         <div className="alert">
           <div className="input-group mb-3 ">
             <input
@@ -41,6 +32,12 @@ const Books: React.FC = () => {
           </div>
         </div>
       </center>
+
+      {isLoading && (
+        <center>
+          <div>Loading...</div>
+        </center>
+      )}
 
       {data && (
         <div className="grid-container mb-2 ">

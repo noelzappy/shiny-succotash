@@ -56,7 +56,11 @@ function useInfiniteQuery<T>(
     nextPage.current = getPageParams(result.data).nextPage;
     // @ts-ignore
     lastPage.current = getPageParams(result.data).lastPage;
-    setPages([...result.data?.res]);
+
+    setPages((prev: any) => {
+      if (!prev) return [...result.data?.res];
+      return [...prev, ...result.data?.res];
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result.data]);

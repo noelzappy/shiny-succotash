@@ -14,10 +14,6 @@ const MenuItems = [
     name: "Characters",
     path: "/characters",
   },
-  {
-    name: "Houses",
-    path: "/houses",
-  },
 ] as const;
 
 const Layout: React.FC = () => {

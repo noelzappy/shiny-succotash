@@ -11,3 +11,11 @@ export interface IBook {
   characters: string[];
   povCharacters: string[];
 }
+
+export interface ICharacter {
+  name: string;
+  url: string;
+  books?: string[];
+  aliases?: string[];
+  gender?: string;
+}
