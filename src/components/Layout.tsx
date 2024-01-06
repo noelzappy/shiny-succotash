@@ -44,7 +44,7 @@ const Layout: React.FC = () => {
           })}
         </div>
       </div>
-      <div className="content-container">
+      <div className="c-content-container">
         <Outlet />
       </div>
     </div>
