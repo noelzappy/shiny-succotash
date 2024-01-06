@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 type useInfiniteQueryResult<T> = {
   data: T;
@@ -42,10 +42,13 @@ function useInfiniteQuery<T>(
     setLoading(false);
   };
 
-  const getPageParams = (data: any) => ({
-    nextPage: data?.meta?.nextPage || undefined,
-    lastPage: data?.meta?.lastPage || undefined,
-  });
+  const getPageParams = useCallback(
+    (data: any) => ({
+      nextPage: data?.meta?.nextPage || undefined,
+      lastPage: data?.meta?.lastPage || undefined,
+    }),
+    []
+  );
 
   useEffect(() => {
     if (!result.isSuccess) return;

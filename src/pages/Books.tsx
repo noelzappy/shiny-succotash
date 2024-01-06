@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import useInfiniteQuery from "../hooks/useInfiniteQuery";
 import { booksApi } from "../services/modules/books";
-import { FiBookOpen } from "react-icons/fi";
 import { IBook } from "../types/data";
+import BookItem from "../components/BookItem";
 
 const Books: React.FC = () => {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery<IBook[]>(booksApi.endpoints.getBooks);
+
+  const [inputText, setInputText] = useState<string>("");
+
+  const filteredData = useMemo(() => {
+    if (!data) return [];
+    if (!inputText) return data;
+    return data.filter((book) =>
+      book.name.toLowerCase().includes(inputText.toLowerCase())
+    );
+  }, [data, inputText]);
 
   return (
     <div>
@@ -16,24 +26,26 @@ const Books: React.FC = () => {
         </center>
       )}
 
+      <center>
+        <h1>Books</h1>
+        <br />
+
+        <div className="alert">
+          <div className="input-group mb-3 ">
+            <input
+              type="text"
+              placeholder="Search"
+              onChange={(e) => setInputText(e.target.value)}
+              className="form-control"
+            />
+          </div>
+        </div>
+      </center>
+
       {data && (
         <div className="grid-container mb-2 ">
-          {data.map((book, index) => (
-            <div className="grid-item" key={index}>
-              <FiBookOpen size={50} />
-              <h3>{book.name}</h3>
-              <div className="divider" />
-              <p className="text-c">
-                Author(s):{" "}
-                <span className="text">
-                  {book.authors?.map((author) => author).join(", ")}
-                </span>
-              </p>
-
-              <p className="text-c">
-                Country: <span className="text">{book.country}</span>
-              </p>
-            </div>
+          {filteredData.map((book, index) => (
+            <BookItem key={index} book={book} />
           ))}
         </div>
       )}
